@@ -4,19 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lazy Acres Home</title>
-  <meta name="description" content="A simple home base for Tod and Donna's shared web apps.">
+  <meta name="description" content="Lazy Acres app launcher.">
   <style>
     :root {
       --bg: #f6f1e8;
-      --panel: rgba(255, 252, 245, 0.88);
+      --panel: rgba(255, 252, 245, 0.9);
       --ink: #243126;
       --muted: #5f6f63;
       --green: #315f48;
       --green-2: #244735;
       --gold: #d7a84f;
       --border: rgba(49, 95, 72, .18);
-      --shadow: 0 18px 48px rgba(34, 49, 38, .16);
+      --shadow: 0 10px 26px rgba(34, 49, 38, .13);
     }
+
     * { box-sizing: border-box; }
     html { min-height: 100%; background: var(--bg); }
     body {
@@ -29,159 +30,179 @@
         radial-gradient(circle at bottom right, rgba(49, 95, 72, .22), transparent 30rem),
         linear-gradient(135deg, #f7f1e7, #e9efe4);
     }
+
     a { color: inherit; }
+
     .shell {
-      width: min(1180px, calc(100% - 32px));
+      width: min(1060px, calc(100% - 28px));
       margin: 0 auto;
-      padding: 34px 0 48px;
+      padding: 28px 0 34px;
     }
+
     header {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 18px;
+      gap: 14px;
       align-items: end;
-      margin-bottom: 22px;
+      margin-bottom: 16px;
     }
+
     .eyebrow {
-      margin: 0 0 8px;
+      margin: 0 0 6px;
       color: var(--green);
-      font-size: .82rem;
-      font-weight: 800;
+      font-size: .78rem;
+      font-weight: 850;
       letter-spacing: .14em;
       text-transform: uppercase;
     }
+
     h1 {
       margin: 0;
-      font-size: clamp(2.2rem, 7vw, 5.5rem);
+      font-size: clamp(2.05rem, 6vw, 4rem);
       line-height: .92;
-      letter-spacing: -.06em;
+      letter-spacing: -.055em;
     }
-    .subtitle {
-      max-width: 780px;
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-size: clamp(1rem, 2.2vw, 1.22rem);
-      line-height: 1.45;
-    }
+
     .version {
       justify-self: end;
       align-self: start;
-      padding: 8px 11px;
+      padding: 7px 10px;
       border: 1px solid var(--border);
       border-radius: 999px;
       background: rgba(255,255,255,.55);
       color: var(--muted);
-      font-size: .82rem;
-      font-weight: 700;
+      font-size: .78rem;
+      font-weight: 750;
       white-space: nowrap;
     }
-    .quickbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 22px 0 24px;
-    }
-    .quickbar button {
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255,255,255,.56);
-      color: var(--green-2);
-      padding: 8px 12px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-    .quickbar button.active {
-      background: var(--green);
-      color: white;
-      border-color: var(--green);
-    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat( auto-fit, minmax(245px, 1fr) );
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 10px;
+      align-items: stretch;
     }
+
     .app-card {
+      position: relative;
       display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 14px;
-      min-height: 184px;
-      padding: 18px;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      min-height: 86px;
+      padding: 12px;
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 18px;
       background: var(--panel);
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
+      cursor: grab;
+      transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease;
     }
+
+    .app-card:active { cursor: grabbing; }
+    .app-card.dragging {
+      opacity: .55;
+      transform: scale(.985);
+      box-shadow: 0 6px 18px rgba(34, 49, 38, .12);
+    }
+
     .card-icon {
       display: grid;
       place-items: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
       background: linear-gradient(145deg, rgba(49,95,72,.15), rgba(215,168,79,.22));
-      font-size: 1.55rem;
+      font-size: 1.4rem;
+      user-select: none;
     }
+
     .card-body {
       min-width: 0;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      gap: 9px;
     }
+
     .card-body h2 {
-      margin: 1px 0 8px;
-      font-size: 1.2rem;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.08;
       letter-spacing: -.025em;
     }
-    .card-body p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.38;
-      font-size: .94rem;
-    }
-    .card-body .note {
-      margin-top: 8px;
-      color: #7a4d10;
-      font-size: .82rem;
-      font-weight: 700;
-    }
+
     .card-actions {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
-      margin-top: auto;
-      padding-top: 16px;
     }
+
     .card-actions a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 38px;
-      padding: 8px 12px;
-      border-radius: 12px;
+      min-height: 32px;
+      padding: 7px 11px;
+      border-radius: 11px;
       text-decoration: none;
       font-weight: 850;
-      font-size: .9rem;
+      font-size: .86rem;
     }
+
     .launch {
       background: linear-gradient(180deg, var(--green), var(--green-2));
       color: white;
     }
-    .repo {
+
+    .order-controls {
+      display: grid;
+      gap: 5px;
+      align-self: stretch;
+      align-content: center;
+    }
+
+    .order-controls button {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 28px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.58);
+      border-radius: 10px;
+      background: rgba(255,255,255,.64);
       color: var(--green-2);
-    }
-    footer {
-      margin-top: 24px;
-      padding: 16px 4px 0;
-      color: var(--muted);
+      font-weight: 900;
       font-size: .88rem;
-      line-height: 1.45;
+      cursor: pointer;
+      line-height: 1;
     }
+
+    .order-controls button:hover,
+    .order-controls button:focus-visible,
+    .card-actions a:hover,
+    .card-actions a:focus-visible {
+      outline: 2px solid rgba(215, 168, 79, .55);
+      outline-offset: 2px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     @media (max-width: 680px) {
       header { grid-template-columns: 1fr; }
       .version { justify-self: start; }
-      .shell { width: min(100% - 22px, 1180px); padding-top: 22px; }
-      .app-card { min-height: 164px; border-radius: 20px; }
+      .shell { width: min(100% - 20px, 1060px); padding-top: 22px; }
+      .grid { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
+      .app-card { min-height: 82px; border-radius: 16px; padding: 10px; }
+      .card-icon { width: 38px; height: 38px; font-size: 1.24rem; }
     }
   </style>
 </head>
@@ -191,168 +212,258 @@
       <div>
         <p class="eyebrow">Lazy Acres</p>
         <h1>Home Base</h1>
-        <p class="subtitle">One clean launch pad for the little fleet of apps we keep duct-taping into usefulness. Bookmarks are fine. This is better.</p>
       </div>
-      <div class="version">v1.0.0 · 2026-06-04</div>
+      <div class="version">v1.0.1 · 2026-06-04</div>
     </header>
 
-    <nav class="quickbar" aria-label="Filter app shortcuts">
-      <button class="active" type="button" data-filter="all">All</button>
-      <button type="button" data-filter="outdoors">Outdoors</button>
-      <button type="button" data-filter="home">Home</button>
-      <button type="button" data-filter="tools">Tools</button>
-      <button type="button" data-filter="music">Music</button>
-      <button type="button" data-filter="family">Family</button>
-    </nav>
-
-    <section class="grid" aria-label="App shortcuts">
-
-        <article class="app-card" data-group="outdoors">
-          <div class="card-icon" aria-hidden="true">🍄</div>
-          <div class="card-body">
-            <h2>UP Foraging</h2>
-            <p>Upper Michigan foraging guide: mushrooms, plants, medicinal uses, seasonal field help.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/up-foraging-guide/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/up-foraging-guide">Repo</a>
-            </div>
+    <section class="grid" aria-label="App shortcuts" data-shortcut-grid>
+      <article class="app-card" data-id="up-foraging" draggable="true">
+        <div class="card-icon" aria-hidden="true">🍄</div>
+        <div class="card-body">
+          <h2>UP Foraging</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/up-foraging-guide/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder UP Foraging">
+          <button type="button" data-move="up" aria-label="Move UP Foraging up">↑</button>
+          <button type="button" data-move="down" aria-label="Move UP Foraging down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="home">
-          <div class="card-icon" aria-hidden="true">🛒</div>
-          <div class="card-body">
-            <h2>Our Shopping List</h2>
-            <p>Shared household grocery and store-trip list.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/Shopping_list/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/Shopping_list">Repo</a>
-            </div>
+      <article class="app-card" data-id="shopping-list" draggable="true">
+        <div class="card-icon" aria-hidden="true">🛒</div>
+        <div class="card-body">
+          <h2>Our Shopping List</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/Shopping_list/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder Our Shopping List">
+          <button type="button" data-move="up" aria-label="Move Our Shopping List up">↑</button>
+          <button type="button" data-move="down" aria-label="Move Our Shopping List down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="home">
-          <div class="card-icon" aria-hidden="true">📅</div>
-          <div class="card-body">
-            <h2>Our Scheduler</h2>
-            <p>Shared calendar for family schedules, lessons, events, and appointments.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/Scheduler/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/Scheduler">Repo</a>
-            </div>
+      <article class="app-card" data-id="scheduler" draggable="true">
+        <div class="card-icon" aria-hidden="true">📅</div>
+        <div class="card-body">
+          <h2>Our Scheduler</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/Scheduler/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder Our Scheduler">
+          <button type="button" data-move="up" aria-label="Move Our Scheduler up">↑</button>
+          <button type="button" data-move="down" aria-label="Move Our Scheduler down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="outdoors">
-          <div class="card-icon" aria-hidden="true">🎣</div>
-          <div class="card-body">
-            <h2>Fishing Logbook</h2>
-            <p>Fishing trips, catches, conditions, locations, and notes.</p>
-            <p class="note">Repo/page URL needs final confirmation if your repository uses a different name.</p>
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/Fishing-Logbook/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/Fishing-Logbook">Repo</a>
-            </div>
+      <article class="app-card" data-id="fishing-logbook" draggable="true">
+        <div class="card-icon" aria-hidden="true">🎣</div>
+        <div class="card-body">
+          <h2>Fishing Logbook</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/Fishing-Logbook/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder Fishing Logbook">
+          <button type="button" data-move="up" aria-label="Move Fishing Logbook up">↑</button>
+          <button type="button" data-move="down" aria-label="Move Fishing Logbook down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="tools">
-          <div class="card-icon" aria-hidden="true">📺</div>
-          <div class="card-body">
-            <h2>TV Lineup Tracker</h2>
-            <p>Tracker for television lineups and programming work.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/tv-tracker/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/tv-tracker">Repo</a>
-            </div>
+      <article class="app-card" data-id="tv-lineup-tracker" draggable="true">
+        <div class="card-icon" aria-hidden="true">📺</div>
+        <div class="card-body">
+          <h2>TV Lineup Tracker</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/tv-tracker/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder TV Lineup Tracker">
+          <button type="button" data-move="up" aria-label="Move TV Lineup Tracker up">↑</button>
+          <button type="button" data-move="down" aria-label="Move TV Lineup Tracker down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="home">
-          <div class="card-icon" aria-hidden="true">🍲</div>
-          <div class="card-body">
-            <h2>Recipe Tracker</h2>
-            <p>Household recipe collection and cooking notes.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/recipe_tracker/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/recipe_tracker">Repo</a>
-            </div>
+      <article class="app-card" data-id="recipe-tracker" draggable="true">
+        <div class="card-icon" aria-hidden="true">🍲</div>
+        <div class="card-body">
+          <h2>Recipe Tracker</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/recipe_tracker/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder Recipe Tracker">
+          <button type="button" data-move="up" aria-label="Move Recipe Tracker up">↑</button>
+          <button type="button" data-move="down" aria-label="Move Recipe Tracker down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="outdoors">
-          <div class="card-icon" aria-hidden="true">🏕️</div>
-          <div class="card-body">
-            <h2>Camping Map</h2>
-            <p>Boondocking, rustic camping, route tools, rest stops, and official area outlines.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/Camping-map-new-3-23-26/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/Camping-map-new-3-23-26">Repo</a>
-            </div>
+      <article class="app-card" data-id="camping-map" draggable="true">
+        <div class="card-icon" aria-hidden="true">🏕️</div>
+        <div class="card-body">
+          <h2>Camping Map</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/Camping-map-new-3-23-26/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder Camping Map">
+          <button type="button" data-move="up" aria-label="Move Camping Map up">↑</button>
+          <button type="button" data-move="down" aria-label="Move Camping Map down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="music">
-          <div class="card-icon" aria-hidden="true">🌻</div>
-          <div class="card-body">
-            <h2>Canticle Cabinet</h2>
-            <p>Bethany Church music library and planning cabinet.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/Church_Music/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/Church_Music">Repo</a>
-            </div>
+      <article class="app-card" data-id="canticle-cabinet" draggable="true">
+        <div class="card-icon" aria-hidden="true">🌻</div>
+        <div class="card-body">
+          <h2>Canticle Cabinet</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/Church_Music/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder Canticle Cabinet">
+          <button type="button" data-move="up" aria-label="Move Canticle Cabinet up">↑</button>
+          <button type="button" data-move="down" aria-label="Move Canticle Cabinet down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="outdoors">
-          <div class="card-icon" aria-hidden="true">🎿</div>
-          <div class="card-body">
-            <h2>Ski Map</h2>
-            <p>Ski map project shortcut.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/Skithingy/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/Skithingy">Repo</a>
-            </div>
+      <article class="app-card" data-id="ski-map" draggable="true">
+        <div class="card-icon" aria-hidden="true">🎿</div>
+        <div class="card-body">
+          <h2>Ski Map</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/Skithingy/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder Ski Map">
+          <button type="button" data-move="up" aria-label="Move Ski Map up">↑</button>
+          <button type="button" data-move="down" aria-label="Move Ski Map down">↓</button>
+        </div>
+      </article>
 
-        <article class="app-card" data-group="family">
-          <div class="card-icon" aria-hidden="true">🧭</div>
-          <div class="card-body">
-            <h2>Genealogy Map</h2>
-            <p>Family-history map and genealogy geography.</p>
-            
-            <div class="card-actions">
-              <a class="launch" href="https://tpoirier1969.github.io/genealogy-map/">Open app</a>
-              <a class="repo" href="https://github.com/tpoirier1969/genealogy-map">Repo</a>
-            </div>
+      <article class="app-card" data-id="genealogy-map" draggable="true">
+        <div class="card-icon" aria-hidden="true">🧭</div>
+        <div class="card-body">
+          <h2>Genealogy Map</h2>
+          <div class="card-actions">
+            <a class="launch" href="https://tpoirier1969.github.io/genealogy-map/">Open</a>
           </div>
-        </article>
+        </div>
+        <div class="order-controls" aria-label="Reorder Genealogy Map">
+          <button type="button" data-move="up" aria-label="Move Genealogy Map up">↑</button>
+          <button type="button" data-move="down" aria-label="Move Genealogy Map down">↓</button>
+        </div>
+      </article>
     </section>
 
-    <footer>
-      <strong>Note:</strong> app links assume GitHub Pages project-site URLs under <code>tpoirier1969.github.io</code>. If a repo uses a different Pages path, only the card link needs changing.
-    </footer>
+    <p class="visually-hidden" aria-live="polite" data-reorder-status></p>
   </main>
 
   <script>
-    document.querySelectorAll('[data-filter]').forEach(button => {
-      button.addEventListener('click', () => {
-        const filter = button.dataset.filter;
-        document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b === button));
-        document.querySelectorAll('.app-card').forEach(card => {
-          card.hidden = filter !== 'all' && card.dataset.group !== filter;
+    (() => {
+      const grid = document.querySelector('[data-shortcut-grid]');
+      const status = document.querySelector('[data-reorder-status]');
+      const storageKey = 'lazy-acres-home-shortcut-order-v1';
+      let draggingCard = null;
+
+      const getCards = () => Array.from(grid.querySelectorAll('.app-card'));
+
+      const saveOrder = () => {
+        const order = getCards().map(card => card.dataset.id);
+        localStorage.setItem(storageKey, JSON.stringify(order));
+      };
+
+      const announceOrder = card => {
+        const cards = getCards();
+        const position = cards.indexOf(card) + 1;
+        status.textContent = `${card.querySelector('h2').textContent} moved to position ${position} of ${cards.length}.`;
+      };
+
+      const applySavedOrder = () => {
+        let savedOrder = [];
+        try {
+          savedOrder = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        } catch (error) {
+          savedOrder = [];
+        }
+
+        if (!Array.isArray(savedOrder) || !savedOrder.length) return;
+
+        const cardsById = new Map(getCards().map(card => [card.dataset.id, card]));
+        savedOrder.forEach(id => {
+          const card = cardsById.get(id);
+          if (card) grid.appendChild(card);
         });
+      };
+
+      const moveCard = (card, direction) => {
+        const cards = getCards();
+        const index = cards.indexOf(card);
+
+        if (direction === 'up' && index > 0) {
+          grid.insertBefore(card, cards[index - 1]);
+        }
+
+        if (direction === 'down' && index < cards.length - 1) {
+          grid.insertBefore(cards[index + 1], card);
+        }
+
+        saveOrder();
+        announceOrder(card);
+        card.focus?.();
+      };
+
+      const getInsertBeforeCard = (x, y) => {
+        return getCards().filter(card => card !== draggingCard).find(card => {
+          const box = card.getBoundingClientRect();
+          const halfwayY = box.top + box.height / 2;
+          const halfwayX = box.left + box.width / 2;
+          return y < halfwayY || (y < box.bottom && x < halfwayX);
+        });
+      };
+
+      applySavedOrder();
+
+      grid.addEventListener('click', event => {
+        const button = event.target.closest('[data-move]');
+        if (!button) return;
+        moveCard(button.closest('.app-card'), button.dataset.move);
       });
-    });
+
+      grid.addEventListener('dragstart', event => {
+        const card = event.target.closest('.app-card');
+        if (!card || event.target.closest('a, button')) {
+          event.preventDefault();
+          return;
+        }
+
+        draggingCard = card;
+        card.classList.add('dragging');
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('text/plain', card.dataset.id);
+      });
+
+      grid.addEventListener('dragover', event => {
+        if (!draggingCard) return;
+        event.preventDefault();
+        const beforeCard = getInsertBeforeCard(event.clientX, event.clientY);
+        if (beforeCard) {
+          grid.insertBefore(draggingCard, beforeCard);
+        } else {
+          grid.appendChild(draggingCard);
+        }
+      });
+
+      grid.addEventListener('dragend', () => {
+        if (!draggingCard) return;
+        draggingCard.classList.remove('dragging');
+        announceOrder(draggingCard);
+        saveOrder();
+        draggingCard = null;
+      });
+    })();
   </script>
 </body>
 </html>
