@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lazy Acres Home</title>
+  <meta name="description" content="A simple home base for Tod and Donna's shared web apps.">
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --panel: rgba(255, 252, 245, 0.88);
+      --ink: #243126;
+      --muted: #5f6f63;
+      --green: #315f48;
+      --green-2: #244735;
+      --gold: #d7a84f;
+      --border: rgba(49, 95, 72, .18);
+      --shadow: 0 18px 48px rgba(34, 49, 38, .16);
+    }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; background: var(--bg); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(215, 168, 79, .24), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(49, 95, 72, .22), transparent 30rem),
+        linear-gradient(135deg, #f7f1e7, #e9efe4);
+    }
+    a { color: inherit; }
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 48px;
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--green);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 7vw, 5.5rem);
+      line-height: .92;
+      letter-spacing: -.06em;
+    }
+    .subtitle {
+      max-width: 780px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.2vw, 1.22rem);
+      line-height: 1.45;
+    }
+    .version {
+      justify-self: end;
+      align-self: start;
+      padding: 8px 11px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .quickbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 22px 0 24px;
+    }
+    .quickbar button {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.56);
+      color: var(--green-2);
+      padding: 8px 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .quickbar button.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(245px, 1fr) );
+      gap: 14px;
+    }
+    .app-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      min-height: 184px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .card-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(49,95,72,.15), rgba(215,168,79,.22));
+      font-size: 1.55rem;
+    }
+    .card-body {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-body h2 {
+      margin: 1px 0 8px;
+      font-size: 1.2rem;
+      letter-spacing: -.025em;
+    }
+    .card-body p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.38;
+      font-size: .94rem;
+    }
+    .card-body .note {
+      margin-top: 8px;
+      color: #7a4d10;
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 16px;
+    }
+    .card-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 850;
+      font-size: .9rem;
+    }
+    .launch {
+      background: linear-gradient(180deg, var(--green), var(--green-2));
+      color: white;
+    }
+    .repo {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.58);
+      color: var(--green-2);
+    }
+    footer {
+      margin-top: 24px;
+      padding: 16px 4px 0;
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+    @media (max-width: 680px) {
+      header { grid-template-columns: 1fr; }
+      .version { justify-self: start; }
+      .shell { width: min(100% - 22px, 1180px); padding-top: 22px; }
+      .app-card { min-height: 164px; border-radius: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">Lazy Acres</p>
+        <h1>Home Base</h1>
+        <p class="subtitle">One clean launch pad for the little fleet of apps we keep duct-taping into usefulness. Bookmarks are fine. This is better.</p>
+      </div>
+      <div class="version">v1.0.0 · 2026-06-04</div>
+    </header>
+
+    <nav class="quickbar" aria-label="Filter app shortcuts">
+      <button class="active" type="button" data-filter="all">All</button>
+      <button type="button" data-filter="outdoors">Outdoors</button>
+      <button type="button" data-filter="home">Home</button>
+      <button type="button" data-filter="tools">Tools</button>
+      <button type="button" data-filter="music">Music</button>
+      <button type="button" data-filter="family">Family</button>
+    </nav>
+
+    <section class="grid" aria-label="App shortcuts">
+
+        <article class="app-card" data-group="outdoors">
+          <div class="card-icon" aria-hidden="true">🍄</div>
+          <div class="card-body">
+            <h2>UP Foraging</h2>
+            <p>Upper Michigan foraging guide: mushrooms, plants, medicinal uses, seasonal field help.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/up-foraging-guide/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/up-foraging-guide">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="home">
+          <div class="card-icon" aria-hidden="true">🛒</div>
+          <div class="card-body">
+            <h2>Our Shopping List</h2>
+            <p>Shared household grocery and store-trip list.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/Shopping_list/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/Shopping_list">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="home">
+          <div class="card-icon" aria-hidden="true">📅</div>
+          <div class="card-body">
+            <h2>Our Scheduler</h2>
+            <p>Shared calendar for family schedules, lessons, events, and appointments.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/Scheduler/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/Scheduler">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="outdoors">
+          <div class="card-icon" aria-hidden="true">🎣</div>
+          <div class="card-body">
+            <h2>Fishing Logbook</h2>
+            <p>Fishing trips, catches, conditions, locations, and notes.</p>
+            <p class="note">Repo/page URL needs final confirmation if your repository uses a different name.</p>
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/Fishing-Logbook/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/Fishing-Logbook">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="tools">
+          <div class="card-icon" aria-hidden="true">📺</div>
+          <div class="card-body">
+            <h2>TV Lineup Tracker</h2>
+            <p>Tracker for television lineups and programming work.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/tv-tracker/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/tv-tracker">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="home">
+          <div class="card-icon" aria-hidden="true">🍲</div>
+          <div class="card-body">
+            <h2>Recipe Tracker</h2>
+            <p>Household recipe collection and cooking notes.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/recipe_tracker/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/recipe_tracker">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="outdoors">
+          <div class="card-icon" aria-hidden="true">🏕️</div>
+          <div class="card-body">
+            <h2>Camping Map</h2>
+            <p>Boondocking, rustic camping, route tools, rest stops, and official area outlines.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/Camping-map-new-3-23-26/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/Camping-map-new-3-23-26">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="music">
+          <div class="card-icon" aria-hidden="true">🌻</div>
+          <div class="card-body">
+            <h2>Canticle Cabinet</h2>
+            <p>Bethany Church music library and planning cabinet.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/Church_Music/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/Church_Music">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="outdoors">
+          <div class="card-icon" aria-hidden="true">🎿</div>
+          <div class="card-body">
+            <h2>Ski Map</h2>
+            <p>Ski map project shortcut.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/Skithingy/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/Skithingy">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card" data-group="family">
+          <div class="card-icon" aria-hidden="true">🧭</div>
+          <div class="card-body">
+            <h2>Genealogy Map</h2>
+            <p>Family-history map and genealogy geography.</p>
+            
+            <div class="card-actions">
+              <a class="launch" href="https://tpoirier1969.github.io/genealogy-map/">Open app</a>
+              <a class="repo" href="https://github.com/tpoirier1969/genealogy-map">Repo</a>
+            </div>
+          </div>
+        </article>
+    </section>
+
+    <footer>
+      <strong>Note:</strong> app links assume GitHub Pages project-site URLs under <code>tpoirier1969.github.io</code>. If a repo uses a different Pages path, only the card link needs changing.
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll('[data-filter]').forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b === button));
+        document.querySelectorAll('.app-card').forEach(card => {
+          card.hidden = filter !== 'all' && card.dataset.group !== filter;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
