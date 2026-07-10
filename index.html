@@ -222,7 +222,7 @@
         <div class="card-body">
           <h2>UP Foraging</h2>
           <div class="card-actions">
-            <a class="launch" href="https://tpoirier1969.github.io/up-foraging-guide/Fixed-Site/index.html" target="_blank" rel="noopener noreferrer">Open</a>
+            <a class="launch" href="https://tpoirier1969.github.io/up-foraging-guide/fixed-site/index.html" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
         </div>
         <div class="order-controls" aria-label="Reorder UP Foraging">
@@ -258,212 +258,76 @@
           <button type="button" data-move="down" aria-label="Move Our Scheduler down">↓</button>
         </div>
       </article>
-
-      <article class="app-card" data-id="fishing-logbook" draggable="true">
-        <div class="card-icon" aria-hidden="true">🎣</div>
-        <div class="card-body">
-          <h2>Fishing Logbook</h2>
-          <div class="card-actions">
-            <a class="launch" href="https://tpoirier1969.github.io/Fishing-Logbook/" target="_blank" rel="noopener noreferrer">Open</a>
-          </div>
-        </div>
-        <div class="order-controls" aria-label="Reorder Fishing Logbook">
-          <button type="button" data-move="up" aria-label="Move Fishing Logbook up">↑</button>
-          <button type="button" data-move="down" aria-label="Move Fishing Logbook down">↓</button>
-        </div>
-      </article>
-
-      <article class="app-card" data-id="tv-lineup-tracker" draggable="true">
-        <div class="card-icon" aria-hidden="true">📺</div>
-        <div class="card-body">
-          <h2>TV Lineup Tracker</h2>
-          <div class="card-actions">
-            <a class="launch" href="https://tpoirier1969.github.io/tv-tracker/" target="_blank" rel="noopener noreferrer">Open</a>
-          </div>
-        </div>
-        <div class="order-controls" aria-label="Reorder TV Lineup Tracker">
-          <button type="button" data-move="up" aria-label="Move TV Lineup Tracker up">↑</button>
-          <button type="button" data-move="down" aria-label="Move TV Lineup Tracker down">↓</button>
-        </div>
-      </article>
-
-      <article class="app-card" data-id="recipe-tracker" draggable="true">
-        <div class="card-icon" aria-hidden="true">🍲</div>
-        <div class="card-body">
-          <h2>Recipe Tracker</h2>
-          <div class="card-actions">
-            <a class="launch" href="https://tpoirier1969.github.io/recipe_tracker/" target="_blank" rel="noopener noreferrer">Open</a>
-          </div>
-        </div>
-        <div class="order-controls" aria-label="Reorder Recipe Tracker">
-          <button type="button" data-move="up" aria-label="Move Recipe Tracker up">↑</button>
-          <button type="button" data-move="down" aria-label="Move Recipe Tracker down">↓</button>
-        </div>
-      </article>
-
-      <article class="app-card" data-id="camping-map" draggable="true">
-        <div class="card-icon" aria-hidden="true">🏕️</div>
-        <div class="card-body">
-          <h2>Camping Map</h2>
-          <div class="card-actions">
-            <a class="launch" href="https://tpoirier1969.github.io/Camping-map-new-3-23-26/" target="_blank" rel="noopener noreferrer">Open</a>
-          </div>
-        </div>
-        <div class="order-controls" aria-label="Reorder Camping Map">
-          <button type="button" data-move="up" aria-label="Move Camping Map up">↑</button>
-          <button type="button" data-move="down" aria-label="Move Camping Map down">↓</button>
-        </div>
-      </article>
-
-      <article class="app-card" data-id="canticle-cabinet" draggable="true">
-        <div class="card-icon" aria-hidden="true">🌻</div>
-        <div class="card-body">
-          <h2>Canticle Cabinet</h2>
-          <div class="card-actions">
-            <a class="launch" href="https://tpoirier1969.github.io/Church_Music/" target="_blank" rel="noopener noreferrer">Open</a>
-          </div>
-        </div>
-        <div class="order-controls" aria-label="Reorder Canticle Cabinet">
-          <button type="button" data-move="up" aria-label="Move Canticle Cabinet up">↑</button>
-          <button type="button" data-move="down" aria-label="Move Canticle Cabinet down">↓</button>
-        </div>
-      </article>
-
-      <article class="app-card" data-id="ski-map" draggable="true">
-        <div class="card-icon" aria-hidden="true">🎿</div>
-        <div class="card-body">
-          <h2>Ski Map</h2>
-          <div class="card-actions">
-            <a class="launch" href="https://tpoirier1969.github.io/Skithingy/" target="_blank" rel="noopener noreferrer">Open</a>
-          </div>
-        </div>
-        <div class="order-controls" aria-label="Reorder Ski Map">
-          <button type="button" data-move="up" aria-label="Move Ski Map up">↑</button>
-          <button type="button" data-move="down" aria-label="Move Ski Map down">↓</button>
-        </div>
-      </article>
-
-      <article class="app-card" data-id="genealogy-map" draggable="true">
-        <div class="card-icon" aria-hidden="true">🧭</div>
-        <div class="card-body">
-          <h2>Genealogy Map</h2>
-          <div class="card-actions">
-            <a class="launch" href="https://tpoirier1969.github.io/genealogy-map/" target="_blank" rel="noopener noreferrer">Open</a>
-          </div>
-        </div>
-        <div class="order-controls" aria-label="Reorder Genealogy Map">
-          <button type="button" data-move="up" aria-label="Move Genealogy Map up">↑</button>
-          <button type="button" data-move="down" aria-label="Move Genealogy Map down">↓</button>
-        </div>
-      </article>
     </section>
-
-    <p class="visually-hidden" aria-live="polite" data-reorder-status></p>
   </main>
 
   <script>
-    (() => {
-      const grid = document.querySelector('[data-shortcut-grid]');
-      const status = document.querySelector('[data-reorder-status]');
-      const storageKey = 'lazy-acres-home-shortcut-order-v1';
-      let draggingCard = null;
+    const grid = document.querySelector('[data-shortcut-grid]');
+    const storageKey = 'lazy-acres-home-order-v1';
+    let dragged = null;
 
-      const getCards = () => Array.from(grid.querySelectorAll('.app-card'));
-
-      const saveOrder = () => {
-        const order = getCards().map(card => card.dataset.id);
-        localStorage.setItem(storageKey, JSON.stringify(order));
-      };
-
-      const announceOrder = card => {
-        const cards = getCards();
-        const position = cards.indexOf(card) + 1;
-        status.textContent = `${card.querySelector('h2').textContent} moved to position ${position} of ${cards.length}.`;
-      };
-
-      const applySavedOrder = () => {
-        let savedOrder = [];
-        try {
-          savedOrder = JSON.parse(localStorage.getItem(storageKey) || '[]');
-        } catch (error) {
-          savedOrder = [];
-        }
-
-        if (!Array.isArray(savedOrder) || !savedOrder.length) return;
-
-        const cardsById = new Map(getCards().map(card => [card.dataset.id, card]));
-        savedOrder.forEach(id => {
-          const card = cardsById.get(id);
-          if (card) grid.appendChild(card);
-        });
-      };
-
-      const moveCard = (card, direction) => {
-        const cards = getCards();
-        const index = cards.indexOf(card);
-
-        if (direction === 'up' && index > 0) {
-          grid.insertBefore(card, cards[index - 1]);
-        }
-
-        if (direction === 'down' && index < cards.length - 1) {
-          grid.insertBefore(cards[index + 1], card);
-        }
-
-        saveOrder();
-        announceOrder(card);
-        card.focus?.();
-      };
-
-      const getInsertBeforeCard = (x, y) => {
-        return getCards().filter(card => card !== draggingCard).find(card => {
-          const box = card.getBoundingClientRect();
-          const halfwayY = box.top + box.height / 2;
-          const halfwayX = box.left + box.width / 2;
-          return y < halfwayY || (y < box.bottom && x < halfwayX);
-        });
-      };
-
-      applySavedOrder();
-
-      grid.addEventListener('click', event => {
-        const button = event.target.closest('[data-move]');
-        if (!button) return;
-        moveCard(button.closest('.app-card'), button.dataset.move);
+    function applySavedOrder() {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      if (!Array.isArray(saved) || !saved.length) return;
+      const cards = Array.from(grid.querySelectorAll('.app-card'));
+      const byId = new Map(cards.map(card => [card.dataset.id, card]));
+      saved.forEach(id => {
+        const card = byId.get(id);
+        if (card) grid.appendChild(card);
       });
-
-      grid.addEventListener('dragstart', event => {
-        const card = event.target.closest('.app-card');
-        if (!card || event.target.closest('a, button')) {
-          event.preventDefault();
-          return;
-        }
-
-        draggingCard = card;
-        card.classList.add('dragging');
-        event.dataTransfer.effectAllowed = 'move';
-        event.dataTransfer.setData('text/plain', card.dataset.id);
+      cards.forEach(card => {
+        if (!saved.includes(card.dataset.id)) grid.appendChild(card);
       });
+    }
 
-      grid.addEventListener('dragover', event => {
-        if (!draggingCard) return;
-        event.preventDefault();
-        const beforeCard = getInsertBeforeCard(event.clientX, event.clientY);
-        if (beforeCard) {
-          grid.insertBefore(draggingCard, beforeCard);
-        } else {
-          grid.appendChild(draggingCard);
-        }
-      });
+    function saveOrder() {
+      const order = Array.from(grid.querySelectorAll('.app-card')).map(card => card.dataset.id);
+      localStorage.setItem(storageKey, JSON.stringify(order));
+    }
 
-      grid.addEventListener('dragend', () => {
-        if (!draggingCard) return;
-        draggingCard.classList.remove('dragging');
-        announceOrder(draggingCard);
-        saveOrder();
-        draggingCard = null;
-      });
-    })();
+    function moveCard(card, direction) {
+      if (!card) return;
+      if (direction === 'up' && card.previousElementSibling) {
+        grid.insertBefore(card, card.previousElementSibling);
+      }
+      if (direction === 'down' && card.nextElementSibling) {
+        grid.insertBefore(card.nextElementSibling, card);
+      }
+      saveOrder();
+    }
+
+    grid.addEventListener('click', event => {
+      const button = event.target.closest('[data-move]');
+      if (!button) return;
+      const card = button.closest('.app-card');
+      moveCard(card, button.dataset.move);
+    });
+
+    grid.addEventListener('dragstart', event => {
+      dragged = event.target.closest('.app-card');
+      if (!dragged) return;
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/plain', dragged.dataset.id);
+      requestAnimationFrame(() => dragged.classList.add('dragging'));
+    });
+
+    grid.addEventListener('dragend', () => {
+      if (dragged) dragged.classList.remove('dragging');
+      dragged = null;
+      saveOrder();
+    });
+
+    grid.addEventListener('dragover', event => {
+      if (!dragged) return;
+      event.preventDefault();
+      const target = event.target.closest('.app-card');
+      if (!target || target === dragged) return;
+      const rect = target.getBoundingClientRect();
+      const before = event.clientY < rect.top + rect.height / 2;
+      grid.insertBefore(dragged, before ? target : target.nextSibling);
+    });
+
+    applySavedOrder();
   </script>
 </body>
 </html>
